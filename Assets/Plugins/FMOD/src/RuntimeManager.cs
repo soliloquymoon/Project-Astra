@@ -342,13 +342,13 @@ retry:
                 result = coreSystem.setDSPBufferSize(dspBufferLength, dspBufferCount);
                 CheckInitResult(result, "FMOD.System.setDSPBufferSize");
             }
+            */
 
             result = coreSystem.setAdvancedSettings(ref advancedSettings);
             CheckInitResult(result, "FMOD.System.setAdvancedSettings");
-            */
 
-            result = coreSystem.setDSPBufferSize(64, 2);
-            CheckInitResult(result, "FMOD.System.setDSPBufferSize");
+            //result = coreSystem.setDSPBufferSize(64, 2);
+            //CheckInitResult(result, "FMOD.System.setDSPBufferSize");
 
             if (fmodSettings.EnableErrorCallback)
             {
