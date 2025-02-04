@@ -36,6 +36,7 @@ public class AudioManager : MonoBehaviour
     {
         musicInstance = RuntimeManager.CreateInstance(musicEvent);
         int offsetMilliseconds = (int)(chartParser.offset * 1000);  // ms
+        Debug.Log("OFFSET: " + offsetMilliseconds);
         musicInstance.setTimelinePosition(offsetMilliseconds);
 
         musicInstance.start();

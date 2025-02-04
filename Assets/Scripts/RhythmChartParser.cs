@@ -1,82 +1,81 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
+[Serializable]
 public class RhythmChartParser : MonoBehaviour
 {
-    public class NoteData
+    [Serializable]
+    public class ChartData
     {
-        public int measure;
-        public int channel;
-        public string data;
+        public string title;
+        public string artist;
+        public float waveoffset;
+        public float bpm;
+        public int tpb;
+        public int lastmeasure;
+        public int[] measure;
+        public string[] chart;
     }
 
-    public float offset = 0.0f;  // WAV offset (in sec)
-    public Dictionary<int, float> bpmMap = new Dictionary<int, float>(); // BPM mapping
-    public List<NoteData> notes = new List<NoteData>(); // note list
-
-    public void LoadChart(string filePath)
+    [Serializable]
+    public class NoteData
     {
-        if (!File.Exists(filePath))
+        public float time; // Tick -> s
+    }
+
+    public float offset = 0.0f;  // WAV Offset (sec)
+    public float bpm = 140f;     // default BPM
+    public int tpb = 480;        // Tick Per Beat
+    public List<NoteData> notes = new List<NoteData>();
+
+    void Start()
+    {
+        
+    }
+
+    public void LoadChart(string jsonContent)
+    {
+        ChartData chartData = JsonUtility.FromJson<ChartData>(jsonContent);
+
+        if (chartData == null)
         {
-            Debug.LogError("파일을 찾을 수 없습니다: " + filePath);
+            Debug.LogError("Failed to parse JSON file.");
             return;
         }
 
-        string[] lines = File.ReadAllLines(filePath);
-        foreach (string line in lines)
+        bpm = chartData.bpm;
+        tpb = chartData.tpb;
+        offset = chartData.waveoffset;
+
+        foreach (string entry in chartData.chart)
         {
-            if (string.IsNullOrWhiteSpace(line) || !line.StartsWith("#"))
-                continue;
-
-            // WAV offset
-            if (line.StartsWith("#WAVEOFFSET"))
+            string[] parts = entry.Split('#');
+            if (parts.Length != 2) continue;
+            if (int.TryParse(parts[0], out int tick))
             {
-                string[] parts = line.Split(' ');
-                if (parts.Length > 1 && float.TryParse(parts[1], out float offsetValue))
-                {
-                    offset = offsetValue;
-                }
-            }
-
-            // BPM
-            else if (line.StartsWith("#BPM"))
-            {
-                string bpmID = line.Substring(4, 2);
-                string bpmValue = line.Substring(7);
-
-                if (int.TryParse(bpmID, System.Globalization.NumberStyles.HexNumber, null, out int id) &&
-                    float.TryParse(bpmValue, out float bpm))
-                {
-                    bpmMap[id] = bpm;
-                }
-            }
-
-            // (Note data example - #00216:1312
-            else if (line.Contains(":"))
-            {
-                string[] parts = line.Split(':');
-                string header = parts[0].Substring(1);
-                string data = parts[1];
-
-                if (header.Length >= 5 &&
-                    int.TryParse(header.Substring(0, 3), out int measure) &&
-                    int.TryParse(header.Substring(3, 2), out int channel))
-                {
-                    notes.Add(new NoteData { measure = measure, channel = channel, data = data });
-                }
+                float tickToTime = ConvertTickToTime(tick);
+                notes.Add(new NoteData { time = tickToTime });
             }
         }
 
-        Debug.Log("Chart loading completed.");
-        Debug.Log("Total Combo: " + notes.Count);
+        Debug.Log("Chart loading completed. Total combo: " + notes.Count);
     }
 
-    public List<float> ConvertNoteDataToTimes(NoteData noteData)
+    public List<float> ConvertNoteDataToTimes()
     {
-        // TO-DO
-        return null;
+        List<float> noteTimes = new List<float>();
+        foreach (var note in notes)
+        {
+            noteTimes.Add(note.time);
+        }
+        return noteTimes;
     }
 
+    public float ConvertTickToTime(int tick)
+    {
+        float seconds = tick * 60 / (bpm * tpb);
+        return seconds + offset;
+    }
 }
