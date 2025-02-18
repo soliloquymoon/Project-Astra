@@ -19,7 +19,7 @@ MonoBehaviour:
     Data3: 3280556
     Data4: -1609530878
   Banks:
-  - {fileID: 8031631660555316110}
+  - {fileID: 8913423226903239695}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -27,6 +27,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 134571
+--- !u!114 &-2089746273788686060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../Desktop/Project-Astra/akiame/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638754155066652222
+  FileSizes:
+  - Name: Desktop
+    Value: 762
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40,38 +60,18 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 1569184972298838805}
-  - {fileID: 8031631660555316110}
+  - {fileID: -2089746273788686060}
+  - {fileID: 8913423226903239695}
   EditorEvents:
   - {fileID: -5088155934253957429}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 8031631660555316110}
+  - {fileID: 8913423226903239695}
   StringsBanks:
-  - {fileID: 1569184972298838805}
-  cacheTime: 638741218082926255
+  - {fileID: -2089746273788686060}
+  cacheTime: 638754155066652222
   cacheVersion: 131622
---- !u!114 &1569184972298838805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
-  m_EditorClassIdentifier: 
-  Path: "../../Desktop/\u110E\u1162\u1107\u1169/akiame/Build/Desktop/Master.strings.bank"
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 638741218082926255
-  FileSizes:
-  - Name: Desktop
-    Value: 762
-  Exists: 1
---- !u!114 &8031631660555316110
+--- !u!114 &8913423226903239695
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,10 +83,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/Master.bank
   m_EditorClassIdentifier: 
-  Path: "../../Desktop/\u110E\u1162\u1107\u1169/akiame/Build/Desktop/Master.bank"
+  Path: ../../../Desktop/Project-Astra/akiame/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638741218082913676
+  lastModified: 638754155066620743
   FileSizes:
   - Name: Desktop
     Value: 1729952

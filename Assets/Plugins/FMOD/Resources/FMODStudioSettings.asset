@@ -609,8 +609,8 @@ MonoBehaviour:
   switchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: "../../Desktop/\u110E\u1162\u1107\u1169/akiame/akiame.fspro"
-  sourceBankPath: "../../Desktop/\u110E\u1162\u1107\u1169/akiame/Build"
+  sourceProjectPath: ../../../Desktop/Project-Astra/akiame/akiame.fspro
+  sourceBankPath: ../../../Desktop/Project-Astra/akiame/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1

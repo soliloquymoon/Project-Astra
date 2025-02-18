@@ -39,12 +39,4 @@ public class NoteManager : MonoBehaviour
         GameObject newNote = Instantiate(notePrefab, noteAppearLocation.position, Quaternion.identity);
         newNote.transform.SetParent(this.transform);
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Note"))
-        {
-            Destroy(collision.gameObject);
-        }
-    }
 }
