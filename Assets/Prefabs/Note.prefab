@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteSpeed: 400
+  img: {fileID: 3641167374762275775}
 --- !u!61 &4152580014747910928
 BoxCollider2D:
   m_ObjectHideFlags: 0

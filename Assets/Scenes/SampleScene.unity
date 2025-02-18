@@ -727,7 +727,6 @@ MonoBehaviour:
   offset: 0
   bpm: 140
   tpb: 480
-  notes: []
 --- !u!4 &1599393953
 Transform:
   m_ObjectHideFlags: 0

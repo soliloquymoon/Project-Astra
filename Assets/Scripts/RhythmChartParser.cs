@@ -23,12 +23,23 @@ public class RhythmChartParser : MonoBehaviour
     public class NoteData
     {
         public float time; // Tick -> s
+        public int laneNumber;
+        public int noteType;
+        public int noteKey;
+
+        public NoteData(float time, int laneNumber, int noteType, int noteKey)
+        {
+            this.time = time;
+            this.laneNumber = laneNumber;
+            this.noteType = noteType;
+            this.noteKey = noteKey;
+        }
     }
 
     public float offset = 0.0f;  // WAV Offset (sec)
     public float bpm = 140f;     // default BPM
     public int tpb = 480;        // Tick Per Beat
-    public List<NoteData> notes = new List<NoteData>();
+    public Queue<NoteData> notes = new Queue<NoteData>();
 
     void Start()
     {
@@ -56,7 +67,9 @@ public class RhythmChartParser : MonoBehaviour
             if (int.TryParse(parts[0], out int tick))
             {
                 float tickToTime = ConvertTickToTime(tick);
-                notes.Add(new NoteData { time = tickToTime });
+                Debug.Log(parts[1]);
+                notes.Enqueue(new NoteData(tickToTime, int.Parse(parts[1].Substring(0, 2)),
+                    int.Parse(parts[1].Substring(2, 1)), int.Parse(parts[1].Substring(3, 1))));
             }
         }
 

@@ -35,20 +35,33 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         musicInstance = RuntimeManager.CreateInstance(musicEvent);
+        Invoke("StartMusic", 2.0f);
+    }
+    
+    void StartMusic()
+    {
         int offsetMilliseconds = (int)(chartParser.offset * 1000);  // ms
         Debug.Log("OFFSET: " + offsetMilliseconds);
-        musicInstance.setTimelinePosition(offsetMilliseconds);
-
         musicInstance.start();
+        musicInstance.setTimelinePosition(offsetMilliseconds);
         musicInstance.setVolume(1.0f);
+        musicInstance.setPaused(false);
     }
 
     void Update()
     {
         if (musicInstance.isValid())
         {
-            musicInstance.getTimelinePosition(out int milliseconds);
-            currentMusicTime = milliseconds / 1000f;  // s
+            ulong dspClock; // use dspClock for better sync
+            FMODUnity.RuntimeManager.CoreSystem.getMasterChannelGroup(out masterChannelGroup);
+            masterChannelGroup.getDSPClock(out dspClock, out _);
+
+            double sampleRate;
+            FMODUnity.RuntimeManager.CoreSystem.getSoftwareFormat(out int rate, out _, out _);
+            sampleRate = rate; // Hz
+
+            // Calculate current music time based on DSP Clock
+            currentMusicTime = (float)(dspClock / sampleRate);
         }
 
         if(Input.anyKeyDown)
@@ -93,5 +106,4 @@ public class AudioManager : MonoBehaviour
     {
         return currentMusicTime;
     }
-
 }
